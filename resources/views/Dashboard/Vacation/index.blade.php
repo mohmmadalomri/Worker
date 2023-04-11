@@ -5,10 +5,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Table USER</h4>
-                    <a class="btn btn-primary" href="{{route('user.create')}}" type="submit">add new</a>
+                    <h4 class="card-title">Table Basic</h4>
+                    <a class="btn btn-primary" href="{{route('vacation.create')}}" type="submit">add new</a>
                 </div>
+                <div class="card-body">
 
+                </div>
 
                 <div class="table-responsive">
                     <table class="table">
@@ -23,7 +25,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            @foreach($user as $item)
+                            @foreach($vacation as $item)
                                 <td>
 
                                     <span class="fw-bold">{{$item->name}}</span>
@@ -65,5 +67,4 @@
             </div>
         </div>
     </div>
-
 @endsection

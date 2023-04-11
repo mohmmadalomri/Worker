@@ -4,6 +4,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VacationController;
+use App\Http\Controllers\DebtController;
+use \App\Http\Controllers\ExpenseController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('dashboard/departmint', DepartmentsController::class);
     Route::resource('dashboard/user', UserController::class);
+    Route::resource('dashboard/vacation', VacationController::class);
+    Route::resource('dashboard/debt', DebtController::class);
+    Route::resource('dashboard/expense', ExpenseController::class);
 });
 
 require __DIR__ . '/auth.php';

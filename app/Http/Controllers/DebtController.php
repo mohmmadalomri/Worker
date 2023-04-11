@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Debt;
+use App\Models\Departments;
+use App\Models\Vacation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DebtController extends Controller
 {
@@ -14,7 +17,8 @@ class DebtController extends Controller
      */
     public function index()
     {
-        //
+        $debt=Debt::all();
+        return view('dashboard.debts.index',compact('debt'));
     }
 
     /**
@@ -24,7 +28,8 @@ class DebtController extends Controller
      */
     public function create()
     {
-        //
+        $specialization=Departments::all();
+        return view('dashboard.debts.create',compact('specialization'));
     }
 
     /**
@@ -35,7 +40,23 @@ class DebtController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'employee_name' => 'required|string',
+            'national_number' => 'required|integer',
+            'Job_number' => 'required|integer',
+            'description' => 'required|string',
+            'value' => 'required|integer',
+        ]);
+
+        $data=$request->all();
+        $image=$request->file('image');
+        $data['image']=$this->images($image,null);
+        $data['employee_id']=Auth::id();
+        $debt=Debt::create($data);
+
+        return redirect()->route('debt.index');
+
+
     }
 
     /**

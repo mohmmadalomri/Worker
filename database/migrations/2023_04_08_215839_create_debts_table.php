@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('employee_id')->references('id')->on('users');
             $table->integer('Job_number');
             $table->integer('national_number');
+            $table->integer('value');
             $table->string('description');
             $table->string('specialization');
             $table->string('image');

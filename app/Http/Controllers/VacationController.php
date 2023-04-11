@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departments;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VacationController extends Controller
 {
@@ -14,7 +16,8 @@ class VacationController extends Controller
      */
     public function index()
     {
-        //
+        $vacation = Vacation::all();
+        return view('Dashboard.vacation.index', compact('vacation'));
     }
 
     /**
@@ -24,24 +27,40 @@ class VacationController extends Controller
      */
     public function create()
     {
-        //
+        $specialization=Departments::all();
+        return view('dashboard.vacation.create',compact('specialization'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'employee_name' => 'required|string',
+            'national_number' => 'required|integer',
+            'Job_number' => 'required|integer',
+            'description' => 'required|string',
+            'reason' => 'required|string',
+        ]);
+
+        $data=$request->all();
+        $image=$request->file('image');
+        $data['image']=$this->images($image,null);
+        $data['employee_id']=Auth::id();
+        $vacation=Vacation::create($data);
+        return redirect()->route('vacation.index');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vacation  $vacation
+     * @param \App\Models\Vacation $vacation
      * @return \Illuminate\Http\Response
      */
     public function show(Vacation $vacation)
@@ -52,7 +71,7 @@ class VacationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Vacation  $vacation
+     * @param \App\Models\Vacation $vacation
      * @return \Illuminate\Http\Response
      */
     public function edit(Vacation $vacation)
@@ -63,8 +82,8 @@ class VacationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Vacation  $vacation
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Vacation $vacation
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Vacation $vacation)
@@ -75,7 +94,7 @@ class VacationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Vacation  $vacation
+     * @param \App\Models\Vacation $vacation
      * @return \Illuminate\Http\Response
      */
     public function destroy(Vacation $vacation)

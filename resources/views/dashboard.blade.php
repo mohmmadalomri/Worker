@@ -544,7 +544,18 @@
                         data-feather="mail"></i><span
                         class="menu-title text-truncate" data-i18n="Email">USER</span></a>
             </li>
-
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('vacation.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">vacation</span></a>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('debt.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">DEBT</span></a>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('expense.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">expense</span></a>
+            </li>
         </ul>
     </div>
 </div>
@@ -652,6 +663,13 @@
 
 
             {{--            </section>--}}
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger" role="alert">
+                    <div class="alert-body">
+                        {{$error}}
+                    </div>
+                </div>
+            @endforeach
             @yield('content')
             <!-- Dashboard Ecommerce ends -->
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departments;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,8 @@ class UserController extends Controller
     public function create()
     {
 
-        return view('dashboard.user.create');
+        $departmint=Departments::all();
+        return view('dashboard.user.create',compact('departmint'));
     }
 
     /**
@@ -55,10 +57,9 @@ class UserController extends Controller
         ]);
         $data=$request->all();
         $data['password']=Hash::make($request->Job_number);
-
-
-
-
+        $data['manger_id']=Auth::id();
+        $user=User::create($data);
+        return redirect()->route('user.index');
 
 
 
