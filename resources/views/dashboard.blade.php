@@ -556,6 +556,18 @@
                         data-feather="mail"></i><span
                         class="menu-title text-truncate" data-i18n="Email">expense</span></a>
             </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('salaries.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">salaries</span></a>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('customers.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">customers</span></a>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('product.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">product</span></a>
+            </li>
         </ul>
     </div>
 </div>

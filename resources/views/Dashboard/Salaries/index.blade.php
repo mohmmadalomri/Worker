@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Table Basic</h4>
-                    <a class="btn btn-primary" href="{{route('expense.create')}}" type="submit">add new</a>
+                    <a class="btn btn-primary" href="{{route('salaries.create')}}" type="submit">add new</a>
                 </div>
                 <div class="card-body">
 
@@ -25,12 +25,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            @foreach($expenses as $item)
+                            @foreach($salaries as $item)
                                 <td>
 
-                                    <span class="fw-bold">{{$item->name}}</span>
+                                    <span class="fw-bold">{{$item->employee_name}}</span>
                                 </td>
-                                <td>{{$item->description}}</td>
+                                <td>{{$item->national_number}}</td>
                                 <td>
                                     <div class="avatar-group">
                                         <img src="{{asset($item->image)}}" style="height: 50px" style="width: 50px">

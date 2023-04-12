@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('company_name');
-            $table->enum('phone',['fax','home','mobil','work']);
-            $table->enum('email',['main','work','personal']);
+            $table->integer('phone');
+            $table->string('email');
             $table->string('website');
             $table->string('facebook_link');
             $table->string('tweeter_link');

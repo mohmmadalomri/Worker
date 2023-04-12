@@ -6,8 +6,10 @@ use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VacationController;
 use App\Http\Controllers\DebtController;
-use \App\Http\Controllers\ExpenseController;
-
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\SalarieController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -39,6 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('dashboard/vacation', VacationController::class);
     Route::resource('dashboard/debt', DebtController::class);
     Route::resource('dashboard/expense', ExpenseController::class);
+    Route::resource('dashboard/salaries', SalarieController::class);
+    Route::resource('dashboard/customers', CustomerController::class);
+    Route::resource('dashboard/product', ProductController::class);
+
 });
 
 require __DIR__ . '/auth.php';

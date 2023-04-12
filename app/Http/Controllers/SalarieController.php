@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departments;
 use App\Models\Salarie;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SalarieController extends Controller
 {
@@ -14,7 +17,8 @@ class SalarieController extends Controller
      */
     public function index()
     {
-        //
+        $salaries=Salarie::all();
+        return view('dashboard.salaries.index',compact('salaries'));
     }
 
     /**
@@ -24,7 +28,10 @@ class SalarieController extends Controller
      */
     public function create()
     {
-        //
+        $salaries=Salarie::all();
+        $user=User::where('manger_id',Auth::id())->get();
+        $section=Departments::all();
+        return view('dashboard.salaries.create',compact('user','salaries','section'));
     }
 
     /**
@@ -35,7 +42,20 @@ class SalarieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'employee_name' => 'required|string',
+            'national_number' => 'required|integer',
+            'Job_number' => 'required|integer',
+            'deductions' => 'required|integer',
+            'discounts' => 'required|integer',
+            'tax' => 'required|integer',
+            'social_security' => 'required|integer',
+            'net_salary' => 'required|integer',
+        ]);
+
+        $data=$request->all();
+        $salary=Salarie::create($data);
+        return redirect()->route('salaries.index');
     }
 
     /**
