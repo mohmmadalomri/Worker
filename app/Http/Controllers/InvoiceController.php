@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -14,7 +17,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $invoces=Invoice::all();
+        return view('dashboard.invoices.index',compact('invoces'));
     }
 
     /**
@@ -24,7 +28,9 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        //
+        $customer=Customer::all();
+        $order=Order::all();
+        return view('dashboard.invoices.create',compact('customer','order'));
     }
 
     /**
@@ -35,7 +41,20 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'remaining_amount' => 'required|integer',
+            'value' => 'required|integer',
+            'discount' => 'required|integer',
+            'tax' => 'required|integer',
+            'total' => 'required|integer',
+            'massage' => 'required|string',
+        ]);
+
+        $data = $request->all();
+        $data['company_id'] = Auth::user()->getAuthIdentifier();
+        $invoices=Invoice::create($data);
+        return redirect()->route('invoices.index');
     }
 
     /**

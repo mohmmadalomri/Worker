@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\Group;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -14,7 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $task=Task::all();
+        return view('dashboard.tasks.index',compact('task'));
     }
 
     /**
@@ -24,7 +28,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $customer=Customer::all();
+        $group=Group::all();
+        return view('dashboard.tasks.create',compact('customer','group'));
     }
 
     /**
@@ -35,7 +41,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $data = $request->all();
+        $data['company_id'] = Auth::user()->getAuthIdentifier();
+        $task=Task::create($data);
+        return redirect()->route('tasks.index');
     }
 
     /**

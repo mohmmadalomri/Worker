@@ -10,8 +10,12 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\SalarieController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
-
-
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OfferPriceController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\TaskEmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +48,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('dashboard/salaries', SalarieController::class);
     Route::resource('dashboard/customers', CustomerController::class);
     Route::resource('dashboard/product', ProductController::class);
+    Route::resource('dashboard/groups', GroupController::class);
+    Route::resource('dashboard/tasks', TaskController::class);
+    Route::resource('dashboard/orders', OrderController::class);
+    Route::resource('dashboard/offer_prices', OfferPriceController::class);
+    Route::resource('dashboard/invoices', InvoiceController::class);
+    Route::resource('dashboard/task_employees', TaskEmployeeController::class);
 
 });
 

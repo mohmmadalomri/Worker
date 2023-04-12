@@ -568,6 +568,35 @@
                         data-feather="mail"></i><span
                         class="menu-title text-truncate" data-i18n="Email">product</span></a>
             </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('groups.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">groups</span></a>
+            </li>
+
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('tasks.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">tasks</span></a>
+            </li>
+
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('orders.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">orders</span></a>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('offer_prices.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">offer_prices</span></a>
+            </li>
+
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('invoices.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">invoices</span></a>
+            </li>
+
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('task_employees.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">task_employees</span></a>
+            </li>
+
         </ul>
     </div>
 </div>

@@ -17,4 +17,15 @@ class Order extends Model
     public function invoice(){
         return $this->hasOne(Invoice::class,'customer_id','id');
     }
+
+    public function customer(){
+        return $this->belongsTo(Customer::class,'customer_id','id');
+    }
+    public function group(){
+        return $this->belongsTo(Group::class,'group_id','id');
+    }
+
+
+
+
 }

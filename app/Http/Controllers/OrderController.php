@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\Group;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -14,7 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $order=Order::all();
+        return view('dashboard.orders.index',compact('order'));
     }
 
     /**
@@ -24,7 +28,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $coustomer=Customer::all();
+        $group=Group::all();
+        return view('dashboard.orders.create',compact('coustomer','group'));
     }
 
     /**
@@ -35,7 +41,19 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'title' => 'required|string',
+            'details' => 'required|string',
+            'notes' => 'required|string',
+        ]);
+
+        $data = $request->all();
+
+        $data['company_id'] = Auth::id();
+        $order=Order::create($data);
+        return redirect()->route('orders.index');
+
     }
 
     /**

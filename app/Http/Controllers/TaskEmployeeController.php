@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TaskEmployee;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskEmployeeController extends Controller
@@ -14,7 +15,8 @@ class TaskEmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $task=TaskEmployee::all();
+        return view('dashboard.taskemployees.index',compact('task'));
     }
 
     /**
@@ -24,7 +26,11 @@ class TaskEmployeeController extends Controller
      */
     public function create()
     {
-        //
+
+        $user=User::all();
+
+        return view('dashboard.taskemployees.create',compact('user'));
+
     }
 
     /**
@@ -35,7 +41,22 @@ class TaskEmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'employee_name' => 'required|string|max:255',
+            'national_number' => 'required|integer',
+            'Job_number' => 'required|integer',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'massage' => 'required|string',
+        ]);
+        $data = $request->all();
+        $image = $request->file('image');
+        $data['image'] = $this->images($image, null);
+       $task=TaskEmployee::create($data);
+       return redirect()->route('task_employees.index');
+
+
+
     }
 
     /**

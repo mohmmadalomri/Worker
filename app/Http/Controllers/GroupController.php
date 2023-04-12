@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -14,7 +16,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $group=Group::all();
+        return view('dashboard.groups.index',compact('group'));
     }
 
     /**
@@ -24,7 +27,9 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        $user=User::all();
+
+        return view('dashboard.groups.create',compact('user'));
     }
 
     /**
@@ -35,7 +40,18 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'image' => 'required|image',
+        ]);
+
+        $data = $request->all();
+        $image = $request->file('image');
+        $data['image'] = $this->images($image, null);
+        $data['company_id'] = Auth::user()->getAuthIdentifier();
+        $group=Group::create($data);
+        return redirect()->route('groups.index');
     }
 
     /**

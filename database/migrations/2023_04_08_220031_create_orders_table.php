@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('notes');
             $table->date('date');
             $table->date('begin_date');
-
             $table->foreignId('customer_id')->references('id')->on('customers');
             $table->foreignId('company_id')->references('id')->on('users');
             $table->foreignId('group_id')->references('id')->on('groups');
