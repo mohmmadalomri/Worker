@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('Country')->nullable();
             $table->string('Company_email')->nullable();
             $table->integer('national_number')->nullable();
+            $table->integer('working_days')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->integer('Job_number')->nullable();
             $table->date('Date_of_employee_registration_in_system')->nullable();
@@ -39,11 +40,9 @@ return new class extends Migration
             $table->enum('status', ['official', 'hourly', 'part_time'])->nullable();
             $table->double('total_salary')->nullable();
             $table->double('partial_salary')->nullable();
-
             $table->double('bonuses')->nullable();
             $table->string('overtime')->nullable();
-            //            $table->foreignId('group_id')->references('id')->on('groups')->nullable();
-
+            $table->unsignedBigInteger('group_id')->nullable();///for empolyee
             $table->bigInteger('manger_id')->nullable(); ///for empolyee
             $table->rememberToken();
             $table->timestamps();

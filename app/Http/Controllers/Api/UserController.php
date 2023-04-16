@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Departments;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
@@ -18,60 +16,45 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::where('type', 'user')->where('manger_id', Auth::id())->get();
-//        $user=User::where('manger_id',Auth::id())->get();
-        return view('dashboard.user.index',compact('user'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-        $departmint=Departments::all();
-        return view('dashboard.user.create',compact('departmint'));
+        $user=User::all();
+        return  response([
+            'user'=>$user
+        ],200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
         $validatedData= $request->validate([
             'email'=>'required|email|string',
             'name'=>'required|string',
             'national_number'=>'required|integer',
             'Job_number'=>'required|integer','working_days',
             'total_salary'=>'required|integer',
+            'manger_id'=>'required|integer',
             'date_of_birth'=>'required|date',
             'Date_of_employee_registration_in_system'=>'required|date',
             'Date_of_employee_registration_in_company'=>'required|date',
 
         ]);
-
-
-
         $data=$request->all();
         $data['password']=Hash::make($request->Job_number);
-        $data['manger_id']=Auth::id();
         $user=User::create($data);
-        return redirect()->route('user.index');
-
-
+        return response([
+            'massage'=>'user add successfully'
+        ],200);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -80,21 +63,10 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -105,7 +77,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

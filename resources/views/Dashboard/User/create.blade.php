@@ -71,6 +71,12 @@
                                     <input type="number" class="form-control" name="partial_salary" id="partial_salary" placeholder="Jop salaray"/>
                                 </div>
                             </div>
+                            <div class="col-xl-4 col-md-6 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="basicInput"> working_days</label>
+                                    <input type="number" class="form-control" name="working_days" id="working_days" placeholder="working_days"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,57 +84,6 @@
         </div>
     </section>
     <section class="bootstrap-select">
-        <section id="basic-checkbox">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Basic Checkboxes</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="demo-inline-spacing">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="checked"
-                                           checked/>
-                                    <label class="form-check-label" for="inlineCheckbox1">satarday</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                           value="unchecked"/>
-                                    <label class="form-check-label" for="inlineCheckbox2">sunday</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                           value="unchecked"/>
-                                    <label class="form-check-label" for="inlineCheckbox2">monday</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                           value="unchecked"/>
-                                    <label class="form-check-label" for="inlineCheckbox2">tusday</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                           value="unchecked"/>
-                                    <label class="form-check-label" for="inlineCheckbox2">wensday</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                           value="unchecked"/>
-                                    <label class="form-check-label" for="inlineCheckbox2">thresday</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                           value="unchecked"/>
-                                    <label class="form-check-label" for="inlineCheckbox2">frayday</label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <div class="content-body">
             <!-- Bootstrap Select start -->
             <section class="bootstrap-select">
