@@ -13,6 +13,10 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OfferPriceController;
+use App\Http\Controllers\Api\InvoiceController;
+use App\Http\Controllers\Api\TaskEmployeeController;
 
 
 /*
@@ -34,14 +38,28 @@ Route::post('auth/access-tokens', [AccessTokenController::class, 'store'])
 Route::delete('auth/access-tokens/{token?}', [AccessTokenController::class, 'destroy'])
     ->middleware('auth:sanctum');
 
-Route::apiResource('auth/user',UserController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/department',DepartmentsController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/vacation',VacationController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/debt',DebtController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/debt',DebtController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/expense',ExpenseController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/salarie',SalarieController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/customer',CustomerController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/product',ProductController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/group',GroupController::class)->middleware('auth:sanctum');
-Route::apiResource('auth/task',TaskController::class)->middleware('auth:sanctum');
+
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('auth/order',OrderController::class);
+    Route::apiResource('auth/user',UserController::class);
+    Route::apiResource('auth/department',DepartmentsController::class);
+    Route::apiResource('auth/vacation',VacationController::class);
+    Route::apiResource('auth/debt',DebtController::class);
+    Route::apiResource('auth/debt',DebtController::class);
+    Route::apiResource('auth/expense',ExpenseController::class);
+    Route::apiResource('auth/salarie',SalarieController::class);
+    Route::apiResource('auth/customer',CustomerController::class);
+    Route::apiResource('auth/product',ProductController::class);
+    Route::apiResource('auth/group',GroupController::class);
+    Route::apiResource('auth/task',TaskController::class);
+    Route::apiResource('auth/offer_prices',OfferPriceController::class);
+    Route::apiResource('auth/invoice',InvoiceController::class);
+    Route::apiResource('auth/taskEmployee',TaskEmployeeController::class);
+
+});
+
+
+
+
+
