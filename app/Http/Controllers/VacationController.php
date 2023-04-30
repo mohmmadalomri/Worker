@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departments;
+use App\Models\User;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,10 @@ class VacationController extends Controller
      */
     public function create()
     {
+        $vacation=Vacation::all();
         $specialization=Departments::all();
-        return view('dashboard.vacation.create',compact('specialization'));
+        $users=User::all();
+        return view('dashboard.vacation.create',compact('specialization','users','vacation'));
     }
 
     /**

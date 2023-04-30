@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TaskEmployee extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','employee_name','national_number','Job_number',
-        'name','description','image','massage'
+    protected $fillable=['user_id','employee_name','task_number','national_number','Job_number',
+        'name','description','image','massage','task_number'
     ];
     public function user()
     {

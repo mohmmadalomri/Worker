@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('username')->nullable();
             $table->integer('phone')->nullable();
+            $table->string('Company_Name')->nullable();
             $table->string('Company_Address')->nullable();
             $table->string('Company_Address_2')->nullable();
             $table->string('City')->nullable();

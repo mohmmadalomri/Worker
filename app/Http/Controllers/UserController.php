@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $user = User::where('type', 'user')->where('manger_id', Auth::id())->get();
 //        $user=User::where('manger_id',Auth::id())->get();
-        return view('dashboard.user.index',compact('user'));
+        return view('dashboard.user.index', compact('user'));
     }
 
     /**
@@ -31,8 +31,8 @@ class UserController extends Controller
     public function create()
     {
 
-        $departmint=Departments::all();
-        return view('dashboard.user.create',compact('departmint'));
+        $departmint = Departments::all();
+        return view('dashboard.user.create', compact('departmint'));
     }
 
     /**
@@ -44,26 +44,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData= $request->validate([
-            'email'=>'required|email|string',
-            'name'=>'required|string',
-            'national_number'=>'required|integer',
-            'Job_number'=>'required|integer','working_days',
-            'total_salary'=>'required|integer',
-            'date_of_birth'=>'required|date',
-            'Date_of_employee_registration_in_system'=>'required|date',
-            'Date_of_employee_registration_in_company'=>'required|date',
+        $validatedData = $request->validate([
+            'email' => 'required|email|string',
+            'name' => 'required|string',
+            'national_number' => 'required|integer',
+            'Job_number' => 'required|integer', 'working_days',
+            'total_salary' => 'required|integer',
+            'date_of_birth' => 'required|date',
+            'Date_of_employee_registration_in_system' => 'required|date',
+            'Date_of_employee_registration_in_company' => 'required|date',
 
         ]);
 
 
-
-        $data=$request->all();
-        $data['password']=Hash::make($request->Job_number);
-        $data['manger_id']=Auth::id();
-        $user=User::create($data);
+        $data = $request->all();
+        $data['password'] = Hash::make($request->Job_number);
+        $data['manger_id'] = Auth::id();
+        $user = User::create($data);
         return redirect()->route('user.index');
-
 
 
     }
@@ -72,11 +70,17 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $user = User::find($id)->first();
+        return response()->json([
+            'employee_name' => $user->name,
+            'national_number' => $user->national_number,
+            'date' => $user->date,
+            'Job_number' => $user->Job_number,
+        ]);
     }
 
     /**

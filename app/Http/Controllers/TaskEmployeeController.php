@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskEmployee;
 use App\Models\User;
+use Faker\Core\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Nette\Utils\Random;
 
 class TaskEmployeeController extends Controller
 {
@@ -15,8 +18,8 @@ class TaskEmployeeController extends Controller
      */
     public function index()
     {
-        $task=TaskEmployee::all();
-        return view('dashboard.taskemployees.index',compact('task'));
+        $task = TaskEmployee::all();
+        return view('dashboard.taskemployees.index', compact('task'));
     }
 
     /**
@@ -27,16 +30,16 @@ class TaskEmployeeController extends Controller
     public function create()
     {
 
-        $user=User::all();
+        $user = User::all();
 
-        return view('dashboard.taskemployees.create',compact('user'));
+        return view('dashboard.taskemployees.create', compact('user'));
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,9 +55,9 @@ class TaskEmployeeController extends Controller
         $data = $request->all();
         $image = $request->file('image');
         $data['image'] = $this->images($image, null);
-       $task=TaskEmployee::create($data);
-       return redirect()->route('task_employees.index');
-
+        $data['task_number'] = Str::random(8);
+        $task = TaskEmployee::create($data);
+        return redirect()->route('task_employees.index');
 
 
     }
@@ -62,7 +65,7 @@ class TaskEmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TaskEmployee  $taskEmployee
+     * @param \App\Models\TaskEmployee $taskEmployee
      * @return \Illuminate\Http\Response
      */
     public function show(TaskEmployee $taskEmployee)
@@ -73,7 +76,7 @@ class TaskEmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TaskEmployee  $taskEmployee
+     * @param \App\Models\TaskEmployee $taskEmployee
      * @return \Illuminate\Http\Response
      */
     public function edit(TaskEmployee $taskEmployee)
@@ -84,8 +87,8 @@ class TaskEmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TaskEmployee  $taskEmployee
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\TaskEmployee $taskEmployee
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TaskEmployee $taskEmployee)
@@ -96,7 +99,7 @@ class TaskEmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TaskEmployee  $taskEmployee
+     * @param \App\Models\TaskEmployee $taskEmployee
      * @return \Illuminate\Http\Response
      */
     public function destroy(TaskEmployee $taskEmployee)
