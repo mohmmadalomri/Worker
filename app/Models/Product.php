@@ -20,4 +20,9 @@ class Product extends Model
     public function offer(){
         return $this->hasMany(OfferPrice::class,'product_id','id');
     }
+
+    public function project(){
+        return $this->hasMany(Project::class,'product_id','id');
+    }
+
 }

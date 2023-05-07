@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('image');
             $table->foreignId('grope_id')->references('id')->on('groups');
-            $table->foreignId('admin')->references('id')->on('users');
+            $table->foreignId('supervisor_id')->references('id')->on('users');
             $table->integer('price');
             $table->string('total_price');
             $table->foreignId('user_id')->references('id')->on('users');

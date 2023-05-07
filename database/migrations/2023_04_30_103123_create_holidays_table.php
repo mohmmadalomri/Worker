@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('number_of_day');
             $table->date('start_date');
             $table->date('end_date');
+            $table->foreignId('user_id')->references('id')->on('users');
 
 
             $table->timestamps();
