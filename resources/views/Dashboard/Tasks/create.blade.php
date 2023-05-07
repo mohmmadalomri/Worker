@@ -43,7 +43,7 @@
                 <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Bootstrap Select</h4>
+                            <h4 class="card-title">customer Select</h4>
                         </div>
                         <div class="card-body">
                             <!-- Basic Select -->
@@ -66,7 +66,7 @@
                 <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Bootstrap Select</h4>
+                            <h4 class="card-title">group Select</h4>
                         </div>
                         <div class="card-body">
                             <!-- Basic Select -->
@@ -82,10 +82,37 @@
                         </div>
 
 
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">PTOJECT Select</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Basic Select -->
+                            <div class="mb-1">
+                                <label class="form-label" for="basicSelect">PTOJECT Select</label>
+                                <select class="form-select" id="project_id" name="project_id">
+                                    @foreach($project as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>
         </section>
+
+
         <button class="btn btn-primary" type="submit">save</button>
     </form>
 @endsection

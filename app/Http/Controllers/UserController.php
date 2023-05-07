@@ -26,7 +26,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -58,6 +58,9 @@ class UserController extends Controller
 
 
         $data = $request->all();
+        $image=$request->file('image');
+        $data['image']=$this->images($image,null);
+
         $data['password'] = Hash::make($request->Job_number);
         $data['manger_id'] = Auth::id();
         $user = User::create($data);

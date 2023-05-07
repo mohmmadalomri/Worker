@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Group;
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,8 @@ class TaskController extends Controller
     {
         $customer=Customer::all();
         $group=Group::all();
-        return view('dashboard.tasks.create',compact('customer','group'));
+        $project=Project::all();
+        return view('dashboard.tasks.create',compact('customer','group','project'));
     }
 
     /**

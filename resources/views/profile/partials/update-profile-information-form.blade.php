@@ -36,6 +36,13 @@
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12">
                                     <div class="mb-1">
+                                        <label class="form-label" for="basicInput">username </label>
+                                        <input type="text" class="form-control" id="username" name="username"
+                                               value="{{$user->username}}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-12">
+                                    <div class="mb-1">
                                         <label class="form-label" for="basicInput">Company_Name</label>
                                         <input type="text" class="form-control" id="Company_Name"
                                                value="{{$user->Company_Name}}" name="Company_Name"

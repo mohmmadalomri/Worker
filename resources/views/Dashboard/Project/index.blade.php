@@ -5,8 +5,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">customers Basic</h4>
-                    <a class="btn btn-primary" href="{{route('customers.create')}}" type="submit">add new</a>
+                    <h4 class="card-title">PROJECT Basic</h4>
+                    <a class="btn btn-primary" href="{{route('project.create')}}" type="submit">add new</a>
                 </div>
                 <div class="card-body">
 
@@ -25,12 +25,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            @foreach($customer as $item)
+                            @foreach($project as $item)
                                 <td>
 
-                                    <span class="fw-bold">{{$item->first_name}}</span>
+                                    <span class="fw-bold">{{$item->employee_name}}</span>
                                 </td>
-                                <td>{{$item->company_name}}</td>
+                                <td>{{$item->description}}</td>
                                 <td>
                                     <div class="avatar-group">
                                         <img src="{{asset($item->image)}}" style="height: 50px" style="width: 50px">

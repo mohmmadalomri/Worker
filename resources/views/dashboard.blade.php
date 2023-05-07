@@ -572,7 +572,10 @@
                         data-feather="mail"></i><span
                         class="menu-title text-truncate" data-i18n="Email">groups</span></a>
             </li>
-
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('project.index')}}"><i
+                        data-feather="mail"></i><span
+                        class="menu-title text-truncate" data-i18n="Email">PROJECT</span></a>
+            </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('tasks.index')}}"><i
                         data-feather="mail"></i><span
                         class="menu-title text-truncate" data-i18n="Email">tasks</span></a>

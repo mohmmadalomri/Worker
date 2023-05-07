@@ -16,6 +16,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OfferPriceController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\TaskEmployeeController;
+use App\Http\Controllers\ProjectController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('dashboard/offer_prices', OfferPriceController::class);
     Route::resource('dashboard/invoices', InvoiceController::class);
     Route::resource('dashboard/task_employees', TaskEmployeeController::class);
+    Route::resource('dashboard/project', ProjectController::class);
 
 });
 

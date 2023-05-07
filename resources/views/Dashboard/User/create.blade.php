@@ -77,6 +77,12 @@
                                     <input type="number" class="form-control" name="working_days" id="working_days" placeholder="working_days"/>
                                 </div>
                             </div>
+                            <div class="col-xl-4 col-md-6 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="basicInput"> IMAGE</label>
+                                    <input type="file" class="form-control" name="image" id="image" placeholder="working_days"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

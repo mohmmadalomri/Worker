@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('holidays', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->references('id')->on('users');
-            $table->string('title');
-            $table->string('description');
-            $table->foreignId('customer_id')->references('id')->on('customers');
-            $table->date('date');
-            $table->foreignId('group_id')->references('id')->on('groups');
-
+            $table->string('name');
+            $table->string('image');
+            $table->enum('type',['type1','type2']);
+            $table->integer('number_of_day');
+            $table->date('start_date');
+            $table->date('end_date');
 
 
             $table->timestamps();
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('holidays');
     }
 };
