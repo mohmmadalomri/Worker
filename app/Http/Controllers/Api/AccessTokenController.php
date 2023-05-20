@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+
 
 class AccessTokenController extends Controller
 {
@@ -15,9 +18,39 @@ class AccessTokenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function register(Request $request)
     {
-        //
+        $data=$request->all();
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'Company_Name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $data['password']=Hash::make($request->password);
+
+//        $user = User::create([
+//            'name' => $request->name,
+//            'email' => $request->email,
+//            'Company_Name' => $request->Company_Name,
+//            'password' => Hash::make($request->password),
+//        ]);
+
+       $user=User::create($data);
+//        event(new Registered($user));
+//        if ($user && Hash::check($request->password, $user->password)) {
+            $device_name = $request->post('device_name', $request->userAgent());
+            $token = $user->createToken($device_name);
+            return response([
+                'token' => $token->plainTextToken,
+                'user' => $user,
+            ], 201);
+//        }
+//        return response([
+//            'code' => 0,
+//            'message' => 'invalid credential'
+//        ], 401);
     }
 
     /**

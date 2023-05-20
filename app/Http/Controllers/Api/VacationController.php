@@ -16,7 +16,7 @@ class VacationController extends Controller
      */
     public function index()
     {
-        $vacation = Vacation::all();
+        $vacation = Vacation::with('user')->get();
         return response([
             'vacation'=>$vacation
         ],200);
@@ -46,7 +46,8 @@ class VacationController extends Controller
         $vacation=Vacation::create($data);
 
         return response([
-            'massage'=>'vacation add successful'
+            'massage'=>'vacation add successful',
+            'vacation'=>$vacation,
         ],200);
 
     }
@@ -59,7 +60,10 @@ class VacationController extends Controller
      */
     public function show($id)
     {
-        //
+        $vacation=Vacation::with('user')->find($id);
+        return response([
+            'vacation'=>$vacation
+        ],200);
     }
 
     /**
@@ -67,21 +71,51 @@ class VacationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $vacation=Vacation::find($id);
+
+        $request->validate([
+            'employee_name' => 'required|string',
+            'national_number' => 'required|integer',
+            'Job_number' => 'required|integer',
+            'employee_id' => 'required|integer',
+            'description' => 'required|string',
+            'reason' => 'required|string',
+        ]);
+
+        $data=$request->all();
+        if ($request->hasFile('image')){
+            $oldimage=$vacation->image;
+            $image=$request->file('image');
+            $data['image']=$this->images($image,$oldimage);
+        }
+
+        $vacation->update($data);
+        return response()->json([
+            'massage'=>'vacation update successful',
+            'vacation'=>$vacation,
+        ],200);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $vacation=Vacation::find($id);
+        $vacation->delete();
+
+        return response()->json([
+            'massage'=>'vacation delete successful',
+
+        ],200);
+
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('company_name');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('email');
             $table->string('website');
             $table->string('facebook_link');

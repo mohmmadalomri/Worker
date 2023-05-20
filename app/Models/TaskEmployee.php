@@ -9,7 +9,7 @@ class TaskEmployee extends Model
 {
     use HasFactory;
     protected $fillable=['user_id','employee_name','task_number','national_number','Job_number',
-        'name','description','image','massage','task_number'
+        'name','description','image','massage'
     ];
     public function user()
     {

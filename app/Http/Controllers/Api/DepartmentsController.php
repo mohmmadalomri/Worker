@@ -15,16 +15,16 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        $department=Departments::all();
+        $department = Departments::with('company')->get();
         return response([
-            'department'=>$department
-        ],200);
+            'department' => $department
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -39,43 +39,71 @@ class DepartmentsController extends Controller
         $data = $request->all();
         $image = $request->file('image');
         $data['image'] = $this->images($image, null);
-        $departmint=Departments::create($data);
+        $departmint = Departments::create($data);
         return response([
-            'massage'=>'Departments add successfully'
-        ],200);
+            'massage' => 'Departments add successfully'
+        ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $department = Departments::with('company')->find($id);
+
+        return response()->json([
+            'department' => $department
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $department = Departments::find($id);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+
+            'company_id' => 'required|integer',
+        ]);
+
+        $data = $request->all();
+        $image = $request->file('image');
+        if ($request->hasFile('image')) {
+            $oldimage = $department->image;
+            $data['image'] = $this->images($image, $oldimage);
+        }
+        $department->update($data);
+        return response()->json([
+            'massage' => "department updated successfully",
+            'department' => $department
+        ], 200);
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $department = Departments::find($id);
+        $department->delete();
+        return response()->json([
+            'massage' => "department delete successfully"
+        ], 200);
     }
 }
