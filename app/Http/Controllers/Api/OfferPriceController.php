@@ -15,16 +15,16 @@ class OfferPriceController extends Controller
      */
     public function index()
     {
-        $offer=OfferPrice::all();
+        $offer = OfferPrice::with('customer', 'product', 'user')->get();
         return response([
-            'offer'=>$offer
-        ],200);
+            'offer' => $offer
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,9 +41,9 @@ class OfferPriceController extends Controller
             'address' => 'required|string',
         ]);
 
-        $offer=OfferPrice::create($request->all());
+        $offer = OfferPrice::create($request->all());
         return response([
-            'massage'=>'OfferPrice add successfully'
+            'massage' => 'OfferPrice add successfully'
         ]);
 
 
@@ -52,34 +52,59 @@ class OfferPriceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $offer = OfferPrice::with('customer', 'product', 'user')->findOrFail($id);
+        return response()->json([
+            'offer' => $offer
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $offer = OfferPrice::findOrFail($id);
+        $request->validate([
+            'customer_id' => 'required|integer',
+            'company_id' => 'required|integer',
+            'title' => 'required|string',
+            'product_id' => 'required|integer',
+            'price' => 'required|integer',
+            'discount' => 'required|integer',
+            'tax' => 'required|integer',
+            'message' => 'required|string',
+            'address' => 'required|string',
+        ]);
+        $data = $request->all();
+
+        $offer->update($data);
+
+        return response()->json([
+            'massage' => 'offer updated successfully',
+            'offer' => $offer
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $offer = OfferPrice::findOrFail($id)->delete();
+        return response()->json([
+            'massage' => 'offer delete successfully'
+        ], 200);
     }
 }

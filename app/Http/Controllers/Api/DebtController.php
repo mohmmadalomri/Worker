@@ -16,7 +16,7 @@ class DebtController extends Controller
      */
     public function index()
     {
-        $dept = Debt::all();
+        $dept = Debt::with('user')->get();
         return response([
             'debt' => $dept
         ], 200);
@@ -57,11 +57,15 @@ class DebtController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $debt = Debt::with('user')->find($id);
+        return response()->json([
+            'debt' => $debt
+        ], 200);
+
     }
 
     /**
@@ -94,6 +98,7 @@ class DebtController extends Controller
         }
         $debt->update($data);
         return response()->json([
+            'massage' => 'Debt update successful',
             'debt' => $debt
         ], 200);
 
@@ -103,10 +108,14 @@ class DebtController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $debt = Debt::find($id)->delete();
+
+        return response()->json([
+            'massage' => 'Debt delete successful'
+        ], 200);
     }
 }

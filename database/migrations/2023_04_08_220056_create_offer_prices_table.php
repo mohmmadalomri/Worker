@@ -24,7 +24,6 @@ return new class extends Migration
             $table->double('tax');
             $table->string('message');
             $table->string('address');
-
             $table->timestamps();
         });
     }

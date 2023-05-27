@@ -16,7 +16,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $project = Project::where('user_id', Auth::id())->get();
+        $project = Project::with('customer', 'product', 'supervisor')->
+        where('user_id', Auth::id())->get();
 
         return response()->json([
             'project' => $project
@@ -55,11 +56,14 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $project = Project::with('customer', 'product', 'supervisor')->findOrFail($id);
+        return response()->json([
+            'project' => $project
+        ], 200);
     }
 
     /**
@@ -67,21 +71,48 @@ class ProjectController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $project = Project::findOrFail($id);
+        $request->validate([
+            'name' => '|string',
+            'description' => 'string',
+            'price' => 'integer|',
+            'total_price' => 'integer|',
+            'image' => 'string',
+        ]);
+        $data = $request->all();
+
+
+        if ($request->hasFile('iamge')) {
+            $oldimage = $project->image;
+            $image = $request->file('image');
+            $data['image'] = $this->images($image, $oldimage);
+        }
+
+        $project->update($data);
+        return response()->json([
+            'massage' => 'project updated successfully',
+            'project' => $project,
+        ], 200);
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id)->delete();
+        return response()->json([
+            'massage' => 'project delete  successfully'
+        ], 200);
     }
 }

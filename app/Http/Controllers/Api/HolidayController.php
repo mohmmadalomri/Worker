@@ -16,7 +16,7 @@ class HolidayController extends Controller
      */
     public function index()
     {
-        $holiday = Holiday::all();
+        $holiday = Holiday::with('user')->get();
         return response()->json([
             'holiday' => $holiday
         ], 200);
@@ -38,7 +38,7 @@ class HolidayController extends Controller
         $data = $request->all();
         $image = $request->file('image');
         $data['image'] = $this->images($image, null);
-        $data['user_id']=Auth::id();
+        $data['user_id'] = Auth::id();
         $holiday = Holiday::create($data);
 
         return response()->json([
@@ -51,11 +51,14 @@ class HolidayController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $holiday = Holiday::with('user')->findOrFail($id);
+        return response()->json([
+            'holiday' => $holiday
+        ], 200);
     }
 
     /**
@@ -63,21 +66,42 @@ class HolidayController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $holiday = Holiday::findOrFail($id);
+        $request->validate([
+            'name' => 'string|required',
+            'number_of_day' => 'string|required',
+        ]);
+        $data = $request->all();
+        if ($request->hasFile('image')) {
+            $oldimage = $holiday->image;
+            $image = $request->file('image');
+            $data['image'] = $this->images($image, $oldimage);
+        }
+
+        $holiday->update($data);
+
+        return response()->json([
+            'massage' => 'holiday update successfully',
+            'holiday' => $holiday
+        ], 200);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $holiday = Holiday::findOrFail($id)->delete();
+        return response()->json([
+            'massage' => 'holiday delete successfully'
+        ], 200);
     }
 }

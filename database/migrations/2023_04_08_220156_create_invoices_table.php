@@ -21,12 +21,11 @@ return new class extends Migration
             $table->date('date');
             $table->integer('remaining_amount');
             $table->foreignId('order_id')->references('id')->on('orders');
-            $table->integer('value');
+            $table->double('value');
             $table->double('discount');
             $table->double('tax');
             $table->double('total');
             $table->string('massage');
-
             $table->timestamps();
         });
     }

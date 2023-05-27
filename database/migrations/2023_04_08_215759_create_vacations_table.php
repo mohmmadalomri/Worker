@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('image');
 
             $table->date('date');
-            $table->enum('type',['paid','deducted ','sick','without_salary_deduction']);
+            $table->enum('type',['Paid','Deducted ','Sick','Without_Salary_Deduction']);
 
             $table->timestamps();
         });

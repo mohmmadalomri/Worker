@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('purpose');
             $table->date('date');
-            $table->integer('value');
+            $table->double('value');
             $table->timestamps();
         });
     }

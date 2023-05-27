@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['super_admin', 'admin', 'user'])->default('user');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -39,7 +38,9 @@ return new class extends Migration
             $table->bigInteger('department_id')->nullable();
             $table->string('Beginning_work')->nullable();
             $table->string('finished_work')->nullable();
-            $table->enum('status', ['official', 'hourly', 'part_time'])->nullable();
+            $table->enum('status', ['Official', 'Hourly', 'Part_Time'])->nullable();
+            $table->enum('type', ['super_admin', 'admin', 'user'])->default('user');
+
             $table->double('total_salary')->nullable();
             $table->double('partial_salary')->nullable();
             $table->double('bonuses')->nullable();

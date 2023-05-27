@@ -13,7 +13,7 @@ class Salarie extends Model
         'deductions','discounts','tax','social_security','net_salary'
     ];
 
-    public function user(){
+    public function employee(){
         return $this->belongsTo(User::class,'employee_id','id');
     }
 }

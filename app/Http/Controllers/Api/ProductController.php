@@ -15,16 +15,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product=Product::all();
+        $product = Product::with('company')->get();
         return response([
-            'product'=>$product
+            'product' => $product
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -35,14 +35,17 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|integer',
             'quantity' => 'required|integer',
+            'type' => 'required|string',
+            'company_id' => 'required|integer',
+            'image' => 'string',
         ]);
 
-        $data=$request->all();
-        $image=$request->file('image');
-        $data['image']=$this->images($image,null);
-        $product=Product::create($data);
+        $data = $request->all();
+        $image = $request->file('image');
+        $data['image'] = $this->images($image, null);
+        $product = Product::create($data);
         return response([
-            'massage'=>'product add successfully'
+            'massage' => 'product add successfully'
         ]);
 
     }
@@ -50,34 +53,63 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $product = Product::with('company')->findOrFail($id);
+
+        return response()->json([
+            'product' => $product
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|integer',
+            'quantity' => 'required|integer',
+        ]);
+
+        $data = $request->all();
+        if ($request->hasFile('image')) {
+            $oldimage = $product->image;
+            $image = $request->file('image');
+            $data['image'] = $this->images($image, $oldimage);
+        }
+        $product->update($data);
+
+        return response()->json([
+            'massage' => 'product updated successfully',
+            'product' => $product
+        ], 200);
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id)->delete();
+        return response()->json([
+            'massage' => 'product delete successfully'
+        ], 200);
+
     }
 }

@@ -15,16 +15,16 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoice=Invoice::all();
+        $invoice = Invoice::with('customer', 'company', 'order')->get();
         return response([
-            'invoice'=>$invoice
-        ],200);
+            'invoice' => $invoice
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,44 +44,74 @@ class InvoiceController extends Controller
             'massage' => 'required|string',
         ]);
 
-        $invoice=Invoice::create($request->all());
+        $invoice = Invoice::create($request->all());
         return response([
-            'massage'=>'invoice add successfully'
-        ]);
+            'massage' => 'invoice add successfully',
+            '$invoice' => $invoice
+        ], 200);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $invoice = Invoice::with('customer', 'company', 'order')->findOrFail($id);
+        return response([
+            'invoice' => $invoice
+        ], 200);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $invoice = Invoice::findOrFail($id);
+        $request->validate([
+            'company_id' => 'required|integer',
+            'customer_id' => 'required|integer',
+            'title' => 'required|string',
+            'date' => 'required|date',
+            'remaining_amount' => 'required|integer',
+            'order_id' => 'required|integer',
+            'value' => 'required|integer',
+            'discount' => 'required|integer',
+            'tax' => 'required|integer',
+            'total' => 'required|integer',
+            'massage' => 'required|string',
+        ]);
+        $data = $request->all();
+
+        $invoice->update($request->all());
+
+        return response()->json([
+            'massage' => 'invoice update successfully',
+            '$invoice' => $invoice
+        ], 200);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $invoice = Invoice::findOrFail($id)->delete();
+        return response([
+            'massage' => 'invoice delete successfully'
+        ], 200);
     }
 }

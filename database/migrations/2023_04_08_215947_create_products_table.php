@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('image');
-            $table->integer('price');
+            $table->double('price');
             $table->integer('quantity');
-            $table->enum('type',['product','serves']);
+            $table->enum('type',['Product','Serves']);
             $table->timestamps();
         });
     }

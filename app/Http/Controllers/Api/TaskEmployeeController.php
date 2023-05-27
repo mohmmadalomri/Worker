@@ -15,16 +15,16 @@ class TaskEmployeeController extends Controller
      */
     public function index()
     {
-        $TaskEmployee=TaskEmployee::all();
+        $TaskEmployee = TaskEmployee::with('employee')->get();
         return response([
-            'TaskEmployee'=>$TaskEmployee
-        ],200);
+            'TaskEmployee' => $TaskEmployee
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,9 +43,10 @@ class TaskEmployeeController extends Controller
         $data = $request->all();
         $image = $request->file('image');
         $data['image'] = $this->images($image, null);
-        $TaskEmployee=TaskEmployee::create($data);
+        $TaskEmployee = TaskEmployee::create($data);
         return response([
-            'massage'=>'TaskEmployee add successfully'
+            'massage' => 'TaskEmployee add successfully',
+            'TaskEmployee' => $TaskEmployee
         ]);
 
     }
@@ -53,34 +54,66 @@ class TaskEmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $TaskEmployee = TaskEmployee::with('employee')->findOrFail($id);
+
+        return response()->json([
+            'TaskEmployee' => $TaskEmployee
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $TaskEmployee = TaskEmployee::findOrFail($id);
+
+        $request->validate([
+            'employee_name' => 'required|string|max:255',
+            'national_number' => 'required|integer',
+            'user_id' => 'required|integer',
+            'Job_number' => 'required|integer',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'massage' => 'required|string',
+            'image' => 'required|image',
+        ]);
+        $data = $request->all();
+        if ($request->hasFile('image')) {
+            $oldimage = $TaskEmployee->image;
+            $image = $request->file('image');
+            $data['image'] = $this->images($image, $oldimage);
+        }
+        $TaskEmployee->update($data);
+
+        return response()->json([
+            'massage' => "Task updated successfully",
+            'TaskEmployee' => $TaskEmployee
+        ], 200);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $TaskEmployee = TaskEmployee::findOrFail($id)->delete();
+        return response()->json([
+            'massage' => "Task delete successfully",
+        ], 200);
     }
 }

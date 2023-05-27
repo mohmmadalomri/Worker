@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('employee_name');
             $table->integer('national_number');
             $table->bigInteger('section_id');
-            $table->bigInteger('deductions');
-            $table->bigInteger('discounts');
-            $table->bigInteger('tax');
-            $table->bigInteger('social_security');
-            $table->bigInteger('net_salary');
+            $table->double('deductions');
+            $table->float('discounts');
+            $table->double('tax');
+            $table->double('social_security');
+            $table->double('net_salary');
 
             $table->timestamps();
         });
