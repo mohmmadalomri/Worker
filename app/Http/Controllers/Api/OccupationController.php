@@ -3,52 +3,48 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vacation;
+use App\Models\Occupation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class VacationController extends Controller
+class OccupationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        $vacation = Vacation::with('user')->get();
-        return response([
-            'vacation' => $vacation
+        $occupation = Occupation::with('coustomer')->get();
+        return response()->json([
+            'occupation' => $occupation
         ], 200);
-
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $request->validate([
-            'employee_name' => 'required|string',
-            'national_number' => 'required|integer',
-            'Job_number' => 'required|integer',
-            'employee_id' => 'required|integer',
+            'name' => 'required|string',
+            'image' => 'required',
             'description' => 'required|string',
-            'reason' => 'required|string',
+            'customer_id' => 'required|integer',
         ]);
-
         $data = $request->all();
+
         $image = $request->file('image');
         $data['image'] = $this->images($image, null);
-        $vacation = Vacation::create($data);
-
-        return response([
-            'massage' => 'vacation add successful',
-            'vacation' => $vacation,
+        $occupation = Occupation::create($data);
+        return response()->json([
+            'massage' => 'occupation add successfully',
+            'occuption' => $occupation
         ], 200);
+
 
     }
 
@@ -56,13 +52,13 @@ class VacationController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        $vacation = Vacation::with('user')->find($id);
-        return response([
-            'vacation' => $vacation
+        $occupation = Occupation::with('coustomer')->findOrFail($id);
+        return response()->json([
+            'occupation' => $occupation
         ], 200);
     }
 
@@ -75,30 +71,27 @@ class VacationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vacation = Vacation::find($id);
+        $occupation = Occupation::findOrFail($id);
 
         $request->validate([
-            'employee_name' => 'required|string',
-            'national_number' => 'required|integer',
-            'Job_number' => 'required|integer',
-            'employee_id' => 'required|integer',
-            'description' => 'required|string',
-            'reason' => 'required|string',
+            'name' => '|string',
+            'image' => 'string',
+            'description' => '|string',
+            'customer_id' => '|integer',
         ]);
-
         $data = $request->all();
+
         if ($request->hasFile('image')) {
-            $oldimage = $vacation->image;
+            $oldimage = $occupation->image;
             $image = $request->file('image');
             $data['image'] = $this->images($image, $oldimage);
         }
+        $occupation->update($data);
 
-        $vacation->update($data);
         return response()->json([
-            'massage' => 'vacation update successful',
-            'vacation' => $vacation,
+            'massage' => 'occupation updated successfully',
+            'occuption' => $occupation
         ], 200);
-
     }
 
     /**
@@ -109,13 +102,9 @@ class VacationController extends Controller
      */
     public function destroy($id)
     {
-        $vacation = Vacation::find($id);
-        $vacation->delete();
-
+        $occupation = Occupation::findOrFail($id)->delete();
         return response()->json([
-            'massage' => 'vacation delete successful',
-
+            'massage' => 'occupation delete successfully'
         ], 200);
-
     }
 }

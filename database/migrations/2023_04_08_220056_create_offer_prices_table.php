@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->references('id')->on('customers');
             $table->foreignId('company_id')->references('id')->on('users');
             $table->string('title');
+            $table->string('image');
             $table->foreignId('product_id')->references('id')->on('products');
             $table->double('price');
             $table->double('discount');

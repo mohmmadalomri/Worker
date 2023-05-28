@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\TaskEmployeeController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\HolidayController;
+use App\Http\Controllers\Api\OccupationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('auth/taskEmployee',TaskEmployeeController::class);
     Route::apiResource('auth/project',ProjectController::class);
     Route::apiResource('auth/holiday',HolidayController::class);
+    Route::apiResource('auth/occupation',OccupationController::class);
 
 });
 
