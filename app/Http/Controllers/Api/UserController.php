@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -36,14 +37,17 @@ class UserController extends Controller
             'national_number' => 'required|integer',
             'Job_number' => 'required|integer', 'working_days',
             'total_salary' => 'required|integer',
-            'manger_id' => 'required|integer',
             'date_of_birth' => 'required|date',
             'Date_of_employee_registration_in_system' => 'required|date',
             'Date_of_employee_registration_in_company' => 'required|date',
 
         ]);
         $data = $request->all();
+
+        $image = $request->file('image');
+        $data['image'] = $this->images($image, null);
         $data['password'] = Hash::make($request->Job_number);
+        $data['manger_id'] = Auth::id();
         $user = User::create($data);
         return response([
             'massage' => 'user add successfully'

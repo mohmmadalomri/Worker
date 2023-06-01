@@ -43,6 +43,11 @@ Route::delete('auth/access-tokens/{token?}', [AccessTokenController::class, 'des
 Route::post('auth/access-tokens/register', [AccessTokenController::class, 'register'])
     ->middleware('guest:sanctum');
 
+Route::post('auth/access-tokens/forgotpassword', [AccessTokenController::class, 'forgotpassword'])
+    ->middleware('guest:sanctum');
+
+
+
 Route::middleware('auth:sanctum')->group(function(){
 
     Route::apiResource('auth/order',OrderController::class);
