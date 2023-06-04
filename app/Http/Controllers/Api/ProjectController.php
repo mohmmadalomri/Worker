@@ -24,6 +24,25 @@ class ProjectController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $project = Project::query()->where('name', 'like', '%' . $query . '%')->
+        orwhere('customer_id', 'like', '%' . $query . '%')->
+        orwhere('product_id', 'like', '%' . $query . '%')->
+        orwhere('price', 'like', '%' . $query . '%')->
+        orwhere('grope_id', 'like', '%' . $query . '%')->
+        orwhere('supervisor_id', 'like', '%' . $query . '%')->
+        orwhere('total_price', 'like', '%' . $query . '%')->
+        orwhere('began_date', 'like', '%' . $query . '%')->
+        orwhere('end_date', 'like', '%' . $query . '%')->
+
+        orwhere('user_id', 'like', '%' . $query . '%')->get();
+        return response([
+            'project' => $project
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

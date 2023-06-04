@@ -22,6 +22,29 @@ class CustomerController extends Controller
         ], 200);
     }
 
+
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $customer = Customer::query()->where('company_id', 'like', '%' . $query . '%')
+            ->orwhere('first_name', 'like', '%' . $query . '%')->
+            orwhere('last_name', 'like', '%' . $query . '%')->
+            orwhere('company_name', 'like', '%' . $query . '%')->
+            orwhere('phone', 'like', '%' . $query . '%')->
+            orwhere('email', 'like', '%' . $query . '%')->
+            orwhere('website', 'like', '%' . $query . '%')->
+            orwhere('town', 'like', '%' . $query . '%')->
+            orwhere('interrupt', 'like', '%' . $query . '%')->
+            orwhere('address_1', 'like', '%' . $query . '%')->
+            orwhere('zipcode', 'like', '%' . $query . '%')->
+            orwhere('country', 'like', '%' . $query . '%')->
+            orwhere('address_2', 'like', '%' . $query . '%')->get();
+
+        return response([
+            'customer' => $customer
+        ], 200);
+    }
     /**
      * Store a newly created resource in storage.
      *

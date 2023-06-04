@@ -21,6 +21,22 @@ class TaskController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $task = Task::query()->where('company_id', 'like', '%' . $query . '%')->
+        orwhere('title', 'like', '%' . $query . '%')->
+        orwhere('description', 'like', '%' . $query . '%')->
+        orwhere('date', 'like', '%' . $query . '%')->
+        orwhere('group_id', 'like', '%' . $query . '%')->
+        orwhere('project_id', 'like', '%' . $query . '%')->
+        orwhere('customer_id', 'like', '%' . $query . '%')->get();
+
+        return response([
+            'task' => $task
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -22,6 +22,20 @@ class HolidayController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $holiday = Holiday::query()->where('user_id', 'like', '%' . $query . '%')->
+        orwhere('name', 'like', '%' . $query . '%')->
+        orwhere('type', 'like', '%' . $query . '%')->
+        orwhere('number_of_day', 'like', '%' . $query . '%')->
+        orwhere('start_date', 'like', '%' . $query . '%')->
+        orwhere('end_date', 'like', '%' . $query . '%')->get();
+        return response([
+            'holiday' => $holiday
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

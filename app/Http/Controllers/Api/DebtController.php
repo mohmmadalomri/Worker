@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Debt;
+use App\Models\Vacation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,23 @@ class DebtController extends Controller
             'debt' => $dept
         ], 200);
     }
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $dept = Debt::where('employee_name', 'like', '%' . $query . '%')
+            ->orwhere('employee_id', 'like', '%' . $query . '%')->
+            orwhere('Job_number', 'like', '%' . $query . '%')->
+            orwhere('national_number', 'like', '%' . $query . '%')->
+            orwhere('description', 'like', '%' . $query . '%')->
+            orwhere('specialization', 'like', '%' . $query . '%')->
+            orwhere('date', 'like', '%' . $query . '%')->
+            orwhere('value', 'like', '%' . $query . '%')->get();
+        return response([
+            'dept' => $dept
+        ], 200);
+    }
+
 
     /**
      * Store a newly created resource in storage.

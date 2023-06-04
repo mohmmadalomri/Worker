@@ -23,6 +23,25 @@ class VacationController extends Controller
 
     }
 
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $vacation = Vacation::where('employee_name', 'like', '%' . $query . '%')
+            ->orwhere('employee_id', 'like', '%' . $query . '%')->
+            orwhere('national_number', 'like', '%' . $query . '%')->
+            orwhere('Job_number', 'like', '%' . $query . '%')->
+            orwhere('specialization', 'like', '%' . $query . '%')->
+            orwhere('description', 'like', '%' . $query . '%')->
+            orwhere('reason', 'like', '%' . $query . '%')->
+            orwhere('type', 'like', '%' . $query . '%')->
+            orwhere('date', 'like', '%' . $query . '%')->get();
+        return response([
+            'vacation' => $vacation
+        ], 200);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

@@ -21,6 +21,22 @@ class ProductController extends Controller
         ]);
     }
 
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $product = Product::query()->where('company_id', 'like', '%' . $query . '%')
+            ->orwhere('name', 'like', '%' . $query . '%')->
+            orwhere('description', 'like', '%' . $query . '%')->
+            orwhere('price', 'like', '%' . $query . '%')->
+            orwhere('quantity', 'like', '%' . $query . '%')->
+            orwhere('type', 'like', '%' . $query . '%')->get();
+
+        return response([
+            'product' => $product
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -47,27 +47,56 @@ Route::post('auth/access-tokens/forgotpassword', [AccessTokenController::class, 
     ->middleware('guest:sanctum');
 
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('auth/order/serach', [OrderController::class, 'serach']);
+    Route::post('auth/user/serach', [UserController::class, 'serach']);
+    Route::post('auth/department/serach', [DepartmentsController::class, 'serach']);
+    Route::apiResource('auth/order', OrderController::class);
+    Route::apiResource('auth/user', UserController::class);
+    Route::apiResource('auth/department', DepartmentsController::class);
+    Route::post('auth/vacation/serach', [VacationController::class, 'serach']);
 
-Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('auth/vacation', VacationController::class);
 
-    Route::apiResource('auth/order',OrderController::class);
-    Route::apiResource('auth/user',UserController::class);
-    Route::apiResource('auth/department',DepartmentsController::class);
-    Route::apiResource('auth/vacation',VacationController::class);
-    Route::apiResource('auth/debt',DebtController::class);
-    Route::apiResource('auth/debt',DebtController::class);
-    Route::apiResource('auth/expense',ExpenseController::class);
-    Route::apiResource('auth/salarie',SalarieController::class);
-    Route::apiResource('auth/customer',CustomerController::class);
-    Route::apiResource('auth/product',ProductController::class);
-    Route::apiResource('auth/group',GroupController::class);
-    Route::apiResource('auth/task',TaskController::class);
-    Route::apiResource('auth/offer_prices',OfferPriceController::class);
-    Route::apiResource('auth/invoice',InvoiceController::class);
-    Route::apiResource('auth/taskEmployee',TaskEmployeeController::class);
-    Route::apiResource('auth/project',ProjectController::class);
-    Route::apiResource('auth/holiday',HolidayController::class);
-    Route::apiResource('auth/occupation',OccupationController::class);
+    Route::post('auth/debt/serach', [DebtController::class, 'serach']);
+    Route::apiResource('auth/debt', DebtController::class);
+
+    Route::post('auth/expense/serach', [ExpenseController::class, 'serach']);
+    Route::apiResource('auth/expense', ExpenseController::class);
+
+    Route::post('auth/salarie/serach', [SalarieController::class, 'serach']);
+    Route::apiResource('auth/salarie', SalarieController::class);
+
+    Route::post('auth/customer/serach', [CustomerController::class, 'serach']);
+    Route::apiResource('auth/customer', CustomerController::class);
+    Route::post('auth/product/serach', [ProductController::class, 'serach']);
+
+    Route::apiResource('auth/product', ProductController::class);
+    Route::post('auth/group/serach', [GroupController::class, 'serach']);
+
+    Route::apiResource('auth/group', GroupController::class);
+
+    Route::post('auth/task/serach', [TaskController::class, 'serach']);
+
+    Route::apiResource('auth/task', TaskController::class);
+    Route::post('auth/offer_prices/serach', [OfferPriceController::class, 'serach']);
+
+    Route::apiResource('auth/offer_prices', OfferPriceController::class);
+    Route::post('auth/invoice/serach', [InvoiceController::class, 'serach']);
+
+    Route::apiResource('auth/invoice', InvoiceController::class);
+    Route::post('auth/taskEmployee/serach', [TaskEmployeeController::class, 'serach']);
+
+    Route::apiResource('auth/taskEmployee', TaskEmployeeController::class);
+    Route::post('auth/project/serach', [ProjectController::class, 'serach']);
+
+    Route::apiResource('auth/project', ProjectController::class);
+    Route::post('auth/holiday/serach', [HolidayController::class, 'serach']);
+
+    Route::apiResource('auth/holiday', HolidayController::class);
+    Route::post('auth/occupation/serach', [OccupationController::class, 'serach']);
+
+    Route::apiResource('auth/occupation', OccupationController::class);
 
 });
 

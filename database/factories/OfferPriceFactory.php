@@ -26,6 +26,7 @@ class OfferPriceFactory extends Factory
             'tax' => $this->faker->randomNumber(),
             'price' => $this->faker->randomNumber(),
             'discount' => $this->faker->randomNumber(),
+            'image' => $this->faker->url(),
 
         ];
     }

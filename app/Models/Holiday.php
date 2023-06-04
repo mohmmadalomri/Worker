@@ -9,7 +9,8 @@ class Holiday extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name', 'image', 'type', 'number_of_day', 'start_date', 'end_date'];
+    protected $fillable = ['user_id', 'name', 'image', 'type', 'number_of_day',
+        'start_date', 'end_date'];
 
 
     public function user()

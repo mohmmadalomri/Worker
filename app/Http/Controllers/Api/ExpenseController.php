@@ -21,6 +21,22 @@ class ExpenseController extends Controller
         ], 200);
     }
 
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $expense = Expense::where('employee_id', 'like', '%' . $query . '%')
+            ->orwhere('name', 'like', '%' . $query . '%')->
+            orwhere('description', 'like', '%' . $query . '%')->
+            orwhere('purpose', 'like', '%' . $query . '%')->
+            orwhere('date', 'like', '%' . $query . '%')->
+            orwhere('value', 'like', '%' . $query . '%')->
+            orwhere('value', 'like', '%' . $query . '%')->get();
+        return response([
+            'expense' => $expense
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

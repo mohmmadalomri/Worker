@@ -15,16 +15,29 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $gooup=Group::all();
+        $gooup = Group::all();
         return response([
-            'gooup'=>$gooup
-        ],200);
+            'gooup' => $gooup
+        ], 200);
+    }
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $gooup = Group::query()->where('company_id', 'like', '%' . $query . '%')->
+        orwhere('name', 'like', '%' . $query . '%')->
+        orwhere('description', 'like', '%' . $query . '%')->
+        orwhere('admin', 'like', '%' . $query . '%')->get();
+
+        return response([
+            'gooup' => $gooup
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -38,17 +51,17 @@ class GroupController extends Controller
         $data = $request->all();
         $image = $request->file('image');
         $data['image'] = $this->images($image, null);
-        $group=Group::create($data);
+        $group = Group::create($data);
         return response([
-            'massage'=>'group add successfully'
-        ],200);
+            'massage' => 'group add successfully'
+        ], 200);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -59,8 +72,8 @@ class GroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -71,7 +84,7 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

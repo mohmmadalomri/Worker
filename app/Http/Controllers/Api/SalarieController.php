@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Expense;
 use App\Models\Salarie;
 use Illuminate\Http\Request;
 use function MongoDB\Driver\Monitoring\removeSubscriber;
@@ -17,6 +18,25 @@ class SalarieController extends Controller
     public function index()
     {
         $salarie = Salarie::with('employee')->get();
+        return response([
+            'salarie' => $salarie
+        ], 200);
+    }
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $salarie = Salarie::query()->where('employee_id', 'like', '%' . $query . '%')
+            ->orwhere('date', 'like', '%' . $query . '%')->
+            orwhere('Job_number', 'like', '%' . $query . '%')->
+            orwhere('employee_name', 'like', '%' . $query . '%')->
+            orwhere('national_number', 'like', '%' . $query . '%')->
+            orwhere('section_id', 'like', '%' . $query . '%')->
+            orwhere('discounts', 'like', '%' . $query . '%')->
+            orwhere('tax', 'like', '%' . $query . '%')->
+            orwhere('social_security', 'like', '%' . $query . '%')->
+            orwhere('net_salary', 'like', '%' . $query . '%')->get();
+
         return response([
             'salarie' => $salarie
         ], 200);

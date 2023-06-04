@@ -22,7 +22,7 @@ class SalarieFactory extends Factory
             'Job_number' => $this->faker->randomNumber(),
             'national_number' => $this->faker->randomNumber(),
             'deductions' => $this->faker->randomNumber(),
-            'discounts' => $this->faker->randomNumber(),
+            'discounts' => $this->faker->randomNumber(1, 50),
             'tax' => $this->faker->randomNumber(),
             'social_security' => $this->faker->randomNumber(),
             'net_salary' => $this->faker->randomNumber(),

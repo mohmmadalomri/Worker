@@ -23,6 +23,44 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $user = User::where('name', 'like', '%' . $query . '%')
+            ->orwhere('type', 'like', '%' . $query . '%')->
+            orwhere('email', 'like', '%' . $query . '%')->
+            orwhere('password', 'like', '%' . $query . '%')->
+            orwhere('type', 'like', '%' . $query . '%')->
+            orwhere('username', 'like', '%' . $query . '%')->
+            orwhere('phone', 'like', '%' . $query . '%')->
+            orwhere('Company_Name', 'like', '%' . $query . '%')->
+            orwhere('Company_Address', 'like', '%' . $query . '%')->
+            orwhere('Company_Address_2', 'like', '%' . $query . '%')->
+            orwhere('City', 'like', '%' . $query . '%')->
+            orwhere('Postal_code', 'like', '%' . $query . '%')->
+            orwhere('Country', 'like', '%' . $query . '%')->
+            orwhere('Company_email', 'like', '%' . $query . '%')->
+            orwhere('national_number', 'like', '%' . $query . '%')->
+            orwhere('date_of_birth', 'like', '%' . $query . '%')->
+            orwhere('Job_number', 'like', '%' . $query . '%')->
+            orwhere('Date_of_employee_registration_in_system', 'like', '%' . $query . '%')->
+            orwhere('Date_of_employee_registration_in_company', 'like', '%' . $query . '%')->
+            orwhere('Beginning_work', 'like', '%' . $query . '%')->
+            orwhere('finished_work', 'like', '%' . $query . '%')->
+            orwhere('department_id', 'like', '%' . $query . '%')->
+            orwhere('status', 'like', '%' . $query . '%')->
+            orwhere('total_salary', 'like', '%' . $query . '%')->
+            orwhere('partial_salary', 'like', '%' . $query . '%')->
+            orwhere('bonuses', 'like', '%' . $query . '%')->
+            orwhere('overtime', 'like', '%' . $query . '%')->
+            orwhere('manger_id', 'like', '%' . $query . '%')->
+            orwhere('group_id', 'like', '%' . $query . '%')->
+            get();
+        return response([
+            'user' => $user
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

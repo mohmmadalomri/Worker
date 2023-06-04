@@ -21,6 +21,19 @@ class DepartmentsController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $departments = Departments::where('name', 'like', '%' . $query . '%')
+            ->orwhere('company_id', 'like', '%' . $query . '%')->
+            orwhere('description', 'like', '%' . $query . '%')->
+            get();
+        return response([
+            'departments' => $departments
+        ], 200);
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *

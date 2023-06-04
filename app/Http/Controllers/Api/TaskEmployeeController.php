@@ -21,6 +21,23 @@ class TaskEmployeeController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $TaskEmployee = TaskEmployee::query()->where('user_id', 'like', '%' . $query . '%')->
+        orwhere('employee_name', 'like', '%' . $query . '%')->
+        orwhere('task_number', 'like', '%' . $query . '%')->
+        orwhere('national_number', 'like', '%' . $query . '%')->
+        orwhere('Job_number', 'like', '%' . $query . '%')->
+        orwhere('name', 'like', '%' . $query . '%')->
+        orwhere('description', 'like', '%' . $query . '%')->
+
+        orwhere('massage', 'like', '%' . $query . '%')->get();
+        return response([
+            'TaskEmployee' => $TaskEmployee
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

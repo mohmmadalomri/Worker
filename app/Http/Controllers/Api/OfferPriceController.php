@@ -21,6 +21,23 @@ class OfferPriceController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $offer = OfferPrice::query()->where('customer_id', 'like', '%' . $query . '%')->
+        orwhere('company_id', 'like', '%' . $query . '%')->
+        orwhere('title', 'like', '%' . $query . '%')->
+        orwhere('product_id', 'like', '%' . $query . '%')->
+        orwhere('price', 'like', '%' . $query . '%')->
+        orwhere('discount', 'like', '%' . $query . '%')->
+        orwhere('message', 'like', '%' . $query . '%')->
+        orwhere('address', 'like', '%' . $query . '%')->
+        orwhere('tax', 'like', '%' . $query . '%')->get();
+        return response([
+            'offer' => $offer
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

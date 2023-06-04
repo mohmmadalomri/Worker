@@ -25,6 +25,8 @@ class TaskFactory extends Factory
             'customer_id' => $this->faker->randomNumber(1, 50),
             'group_id' => $this->faker->randomNumber(1, 50),
             'project_id' => $this->faker->randomNumber(1, 50),
+            'image' => $this->faker->image(null, 500, 500),
+
         ];
     }
 }

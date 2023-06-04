@@ -21,6 +21,17 @@ class OccupationController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $occupation = Occupation::query()->where('name', 'like', '%' . $query . '%')->
+        orwhere('description', 'like', '%' . $query . '%')->
+        orwhere('customer_id', 'like', '%' . $query . '%')->get();
+        return response([
+            'occupation' => $occupation
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

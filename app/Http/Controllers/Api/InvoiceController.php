@@ -21,6 +21,24 @@ class InvoiceController extends Controller
         ], 200);
     }
 
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $invoice = Invoice::query()->where('company_id', 'like', '%' . $query . '%')->
+        orwhere('customer_id', 'like', '%' . $query . '%')->
+        orwhere('title', 'like', '%' . $query . '%')->
+        orwhere('date', 'like', '%' . $query . '%')->
+        orwhere('remaining_amount', 'like', '%' . $query . '%')->
+        orwhere('order_id', 'like', '%' . $query . '%')->
+        orwhere('value', 'like', '%' . $query . '%')->
+        orwhere('discount', 'like', '%' . $query . '%')->
+        orwhere('total', 'like', '%' . $query . '%')->
+        orwhere('massage', 'like', '%' . $query . '%')->
+        orwhere('tax', 'like', '%' . $query . '%')->get();
+        return response([
+            'invoice' => $invoice
+        ], 200);
+    }
     /**
      * Store a newly created resource in storage.
      *

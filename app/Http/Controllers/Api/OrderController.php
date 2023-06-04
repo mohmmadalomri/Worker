@@ -8,6 +8,24 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+    public function serach(Request $request)
+    {
+        $query = $request->input('query');
+        $order = Order::where('title', 'like', '%' . $query . '%')
+            ->orwhere('details', 'like', '%' . $query . '%')->
+            orwhere('date', 'like', '%' . $query . '%')->
+            orwhere('notes', 'like', '%' . $query . '%')->
+            orwhere('begin_date', 'like', '%' . $query . '%')->
+            orwhere('customer_id', 'like', '%' . $query . '%')->
+            orwhere('company_id', 'like', '%' . $query . '%')->
+            orwhere('group_id', 'like', '%' . $query . '%')->get();
+        return response([
+            'order' => $order
+        ], 200);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +38,7 @@ class OrderController extends Controller
             'order' => $order
         ], 200);
     }
+
 
     /**
      * Store a newly created resource in storage.
