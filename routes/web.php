@@ -38,28 +38,28 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::resource('dashboard/departmint', DepartmentsController::class);
-    Route::resource('dashboard/user', UserController::class);
-    Route::resource('dashboard/vacation', VacationController::class);
-    Route::resource('dashboard/debt', DebtController::class);
-    Route::resource('dashboard/expense', ExpenseController::class);
-    Route::resource('dashboard/salaries', SalarieController::class);
-    Route::resource('dashboard/customers', CustomerController::class);
-    Route::resource('dashboard/product', ProductController::class);
-    Route::resource('dashboard/groups', GroupController::class);
-    Route::resource('dashboard/tasks', TaskController::class);
-    Route::resource('dashboard/orders', OrderController::class);
-    Route::resource('dashboard/offer_prices', OfferPriceController::class);
-    Route::resource('dashboard/invoices', InvoiceController::class);
-    Route::resource('dashboard/task_employees', TaskEmployeeController::class);
-    Route::resource('dashboard/project', ProjectController::class);
-
-});
+//
+//Route::middleware('auth')->group(function () {
+//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//
+//    Route::resource('dashboard/departmint', DepartmentsController::class);
+//    Route::resource('dashboard/user', UserController::class);
+//    Route::resource('dashboard/vacation', VacationController::class);
+//    Route::resource('dashboard/debt', DebtController::class);
+//    Route::resource('dashboard/expense', ExpenseController::class);
+//    Route::resource('dashboard/salaries', SalarieController::class);
+//    Route::resource('dashboard/customers', CustomerController::class);
+//    Route::resource('dashboard/product', ProductController::class);
+//    Route::resource('dashboard/groups', GroupController::class);
+//    Route::resource('dashboard/tasks', TaskController::class);
+//    Route::resource('dashboard/orders', OrderController::class);
+//    Route::resource('dashboard/offer_prices', OfferPriceController::class);
+//    Route::resource('dashboard/invoices', InvoiceController::class);
+//    Route::resource('dashboard/task_employees', TaskEmployeeController::class);
+//    Route::resource('dashboard/project', ProjectController::class);
+//
+//});
 
 require __DIR__ . '/auth.php';

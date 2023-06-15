@@ -23,6 +23,11 @@ class VacationController extends Controller
 
     }
 
+    public function history(){
+        $vacation=Vacation::query()->where('employee_id',Auth::id())->get();
+        
+    }
+
 
     public function serach(Request $request)
     {

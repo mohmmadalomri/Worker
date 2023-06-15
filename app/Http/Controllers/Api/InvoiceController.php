@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\InvoiceProducts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 
 class InvoiceController extends Controller
 {
@@ -39,6 +43,7 @@ class InvoiceController extends Controller
             'invoice' => $invoice
         ], 200);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -47,14 +52,13 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-
+        $data = $request->all();
         $request->validate([
-            'company_id' => 'required|integer',
             'customer_id' => 'required|integer',
             'title' => 'required|string',
             'date' => 'required|date',
             'remaining_amount' => 'required|integer',
-            'order_id' => 'required|integer',
+            'order_id' => 'required|Array',
             'value' => 'required|integer',
             'discount' => 'required|integer',
             'tax' => 'required|integer',
@@ -62,7 +66,30 @@ class InvoiceController extends Controller
             'massage' => 'required|string',
         ]);
 
-        $invoice = Invoice::create($request->all());
+
+        $invoice = Invoice::create($data);
+        for ($i = 0; $i < count($request->order_id); $i++) {
+
+            DB::table('invoice_products')->insert([
+                'invoice_id' => $invoice->id,
+                'order_id' => $request->order_id[$i]
+            ]);
+        }
+
+
+//
+//        for ($i = 0; $i < count($request->order_id); $i++) {
+//            if (isset($request->order_id[$i]) ) {
+//                InvoiceProducts::create([
+//                    'invoice_id' => $invoice->id,
+//                    'name' => $request->product[$i],
+//                    'quantity' => $request->qty[$i],
+//                    'price' => $request->price[$i],
+//                ]);
+//            }
+//        }
+
+       $data['company_id'] = Auth::id();
         return response([
             'massage' => 'invoice add successfully',
             '$invoice' => $invoice
@@ -96,7 +123,6 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
         $request->validate([
-            'company_id' => 'required|integer',
             'customer_id' => 'required|integer',
             'title' => 'required|string',
             'date' => 'required|date',

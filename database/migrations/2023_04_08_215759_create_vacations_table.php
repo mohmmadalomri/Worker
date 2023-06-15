@@ -23,8 +23,9 @@ return new class extends Migration
             $table->string('description');
             $table->string('reason');
             $table->string('image');
-
-            $table->date('date');
+            $table->date('start_day');
+            $table->date('end_day');
+            $table->enum('status',['acceptable','waiting ','canceled','rejected']);
             $table->enum('type',['Paid','Deducted ','Sick','Without_Salary_Deduction']);
 
             $table->timestamps();

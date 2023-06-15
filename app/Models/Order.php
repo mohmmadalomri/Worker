@@ -30,5 +30,9 @@ class Order extends Model
         return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 
-
+    public function invoce()
+    {
+        return $this->belongsToMany(Invoice::class, 'invoice_products',
+            'order_id', 'invoice_id');
+    }
 }

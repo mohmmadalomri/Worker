@@ -18,9 +18,11 @@ return new class extends Migration
             $table->foreignId('company_id')->references('id')->on('users');
             $table->foreignId('customer_id')->references('id')->on('customers');
             $table->string('title');
+            $table->double('amount');
             $table->date('date');
-            $table->integer('remaining_amount');
+            $table->double('remaining_amount');
             $table->foreignId('order_id')->references('id')->on('orders');
+            $table->foreignId('project_id')->references('id')->on('projects');
             $table->double('value');
             $table->double('discount');
             $table->double('tax');

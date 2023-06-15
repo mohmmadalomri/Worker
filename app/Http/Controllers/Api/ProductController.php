@@ -53,7 +53,7 @@ class ProductController extends Controller
             'quantity' => 'required|integer',
             'type' => 'required|string',
             'company_id' => 'required|integer',
-            'image' => 'string',
+            'image' => 'image',
         ]);
 
         $data = $request->all();
