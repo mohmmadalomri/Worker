@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
-    protected $fillable=['company_id','customer_id','title','date','remaining_amount',
+    protected $fillable=['company_id','customer_id','title',
+        'date','remaining_amount',
         'order_id','value','discount','tax','total','massage','amount','project_id'
     ];
     public function customer(){
@@ -19,7 +20,7 @@ class Invoice extends Model
     }
 
     public function order(){
-        return $this->belongsToMany(Order::class,'invoice_products','invoice_id','order_id');
+        return $this->belongsToMany(Order::class,'invoice_order','invoice_id','order_id');
     }
 
     public function project(){

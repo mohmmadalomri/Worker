@@ -26,7 +26,8 @@ class VacationFactory extends Factory
           'description'=>$this->faker->text(),
           'reason'=>$this->faker->title(),
           'image'=>$this->faker->image(null,500,500),
-          'date'=>$this->faker->date(),
+          'start_day'=>$this->faker->date(),
+          'end_day'=>$this->faker->date(),
           'type'=>$this->faker->randomElement(['paid','deducted','sick','without_salary_deduction']),
 
         ];

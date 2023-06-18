@@ -18,10 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = ['name', 'email', 'password', 'type', 'username', 'phone', 'image','Company_Name',
-        'Company_Address', 'Company_Address_2', 'City', 'Postal_code', 'Country', 'Company_email',
-        'national_number', 'date_of_birth', 'Job_number', 'Date_of_employee_registration_in_system',
-        'Date_of_employee_registration_in_company', 'Beginning_work', 'finished_work','department_id',
-        'status', 'total_salary', 'partial_salary', 'bonuses', 'overtime', 'manger_id','group_id',
+        'Company_Address', 'Company_Address_2', 'City',
+        'Postal_code', 'Country', 'Company_email',
+        'national_number', 'date_of_birth', 'Job_number',
+        'Date_of_employee_registration_in_system',
+        'Date_of_employee_registration_in_company',
+        'Beginning_work', 'finished_work','department_id',
+        'status', 'total_salary', 'partial_salary', 'bonuses',
+        'overtime', 'manger_id','group_id',
         'Highlight','about','address'
     ];
 
@@ -90,6 +94,9 @@ class User extends Authenticatable
         return $this->hasMany(Project::class, 'supervisor_id', 'id');
     }
 
+    public function deduction(){
+        return $this->hasMany(Deduction::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

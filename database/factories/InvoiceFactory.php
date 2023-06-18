@@ -27,6 +27,8 @@ class InvoiceFactory extends Factory
             'discount' => $this->faker->randomNumber(),
             'tax' => $this->faker->randomNumber(),
             'total' => $this->faker->randomNumber(),
+            'project_id' => $this->faker->randomNumber(1, 50),
+            'amount' => $this->faker->randomNumber(),
             'massage' => $this->faker->text(),
         ];
     }

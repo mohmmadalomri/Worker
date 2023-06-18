@@ -10,7 +10,8 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'details', 'notes', 'date', 'begin_date', 'customer_id', 'company_id',
+        'title', 'details', 'notes', 'date',
+        'begin_date', 'customer_id', 'company_id',
         'group_id'
     ];
 
@@ -32,7 +33,7 @@ class Order extends Model
 
     public function invoce()
     {
-        return $this->belongsToMany(Invoice::class, 'invoice_products',
+        return $this->belongsToMany(Invoice::class, 'invoice_order',
             'order_id', 'invoice_id');
     }
 }

@@ -52,44 +52,29 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $data['company_id'] = Auth::id();
         $data = $request->all();
-        $request->validate([
-            'customer_id' => 'required|integer',
-            'title' => 'required|string',
-            'date' => 'required|date',
-            'remaining_amount' => 'required|integer',
-            'order_id' => 'required|Array',
-            'value' => 'required|integer',
-            'discount' => 'required|integer',
-            'tax' => 'required|integer',
-            'total' => 'required|integer',
-            'massage' => 'required|string',
+        $invoiceData = $request->validate([
+            'customer_id' => '|integer',
+//            'company_id' => '|integer',
+            'title' => '|string',
+            'date' => '|date',
+            'remaining_amount' => '|integer',
+            'value' => '|integer',
+            'discount' => '|integer',
+            'tax' => '|integer',
+            'order_id' => 'required',
+            'total' => '|integer',
+            'massage' => '|string',
+            'amount' => '|integer',
         ]);
+        $orderIds = $request->input('order_ids');
 
 
-        $invoice = Invoice::create($data);
-        for ($i = 0; $i < count($request->order_id); $i++) {
-
-            DB::table('invoice_products')->insert([
-                'invoice_id' => $invoice->id,
-                'order_id' => $request->order_id[$i]
-            ]);
-        }
+        $invoice = Invoice::create($invoiceData);
+        $invoice->order()->attach($orderIds);
 
 
-//
-//        for ($i = 0; $i < count($request->order_id); $i++) {
-//            if (isset($request->order_id[$i]) ) {
-//                InvoiceProducts::create([
-//                    'invoice_id' => $invoice->id,
-//                    'name' => $request->product[$i],
-//                    'quantity' => $request->qty[$i],
-//                    'price' => $request->price[$i],
-//                ]);
-//            }
-//        }
-
-       $data['company_id'] = Auth::id();
         return response([
             'massage' => 'invoice add successfully',
             '$invoice' => $invoice
