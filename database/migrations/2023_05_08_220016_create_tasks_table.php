@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('description');
             $table->foreignId('customer_id')->references('id')->on('customers');
             $table->date('date');
+            $table->date('end_date');
+            $table->date('start_date');
             $table->foreignId('group_id')->references('id')->on('groups');
 
 

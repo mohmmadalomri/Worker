@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('work');
             $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('group_id')->references('id')->on('groups');
+            $table->foreignId('company_id')->references('id')->on('users');
             $table->double('subtotal');
             $table->date('schedule');
             $table->timestamps();

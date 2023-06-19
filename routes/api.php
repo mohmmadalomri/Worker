@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\HolidayController;
 use App\Http\Controllers\Api\OccupationController;
 use App\Http\Controllers\Api\DeductionController;
+use App\Http\Controllers\Api\JopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('auth/deduction', DeductionController::class);
     Route::apiResource('auth/occupation', OccupationController::class);
+    Route::post('auth/jop/serach', [JopController::class, 'serach']);
+
+    Route::apiResource('auth/jop', JopController::class);
 
 });
 
