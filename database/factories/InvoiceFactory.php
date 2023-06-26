@@ -19,7 +19,6 @@ class InvoiceFactory extends Factory
         return [
             'company_id' => $this->faker->randomNumber(1, 50),
             'customer_id' => $this->faker->randomNumber(1, 50),
-            'order_id' => $this->faker->randomNumber(1, 50),
             'title' => $this->faker->title(),
             'date' => $this->faker->date(),
             'remaining_amount' => $this->faker->randomNumber(),
