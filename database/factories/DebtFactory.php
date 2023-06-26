@@ -24,7 +24,8 @@ class DebtFactory extends Factory
             'description' => $this->faker->text(),
             'specialization' => $this->faker->name(),
             'image' => $this->faker->image(null, 500, 500),
-            'date' => $this->faker->date(),
+            'end_day' => $this->faker->date(),
+            'start_day' => $this->faker->date(),
             'value' => $this->faker->randomNumber(),
         ];
     }

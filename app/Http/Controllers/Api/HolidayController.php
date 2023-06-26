@@ -49,6 +49,10 @@ class HolidayController extends Controller
             'image' => 'image|required',
             'number_of_day' => 'string|required',
         ]);
+
+
+
+
         $data = $request->all();
         $image = $request->file('image');
         $data['image'] = $this->images($image, null);

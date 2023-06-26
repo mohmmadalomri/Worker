@@ -19,7 +19,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoice = Invoice::with('customer', 'company', 'order')->get();
+        $invoice = Invoice::with('customer', 'company', 'orders')->get();
         return response([
             'invoice' => $invoice
         ], 200);
@@ -52,28 +52,23 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $data['company_id'] = Auth::id();
-        $data = $request->all();
-        $invoiceData = $request->validate([
-            'customer_id' => '|integer',
-//            'company_id' => '|integer',
-            'title' => '|string',
-            'date' => '|date',
-            'remaining_amount' => '|integer',
-            'value' => '|integer',
-            'discount' => '|integer',
-            'tax' => '|integer',
-            'order_id' => 'required',
-            'total' => '|integer',
-            'massage' => '|string',
-            'amount' => '|integer',
-        ]);
-        $orderIds = $request->input('order_ids');
 
-
-        $invoice = Invoice::create($invoiceData);
-        $invoice->order()->attach($orderIds);
-
+        $invoice = new Invoice();
+        $invoice->company_id = Auth::id();
+        $invoice->customer_id = $request->customer_id;
+        $invoice->project_id = $request->project_id;
+        $invoice->title = $request->title;
+        $invoice->amount = $request->amount;
+        $invoice->date = $request->date;
+        $invoice->remaining_amount = $request->remaining_amount;
+        $invoice->value = $request->value;
+        $invoice->discount = $request->discount;
+        $invoice->tax = $request->tax;
+        $invoice->total = $request->total;
+        $invoice->massage = $request->massage;
+        $invoice->save();
+        $orderIds = $request->input('order_id');
+        $invoice->orders()->sync($orderIds);
 
         return response([
             'massage' => 'invoice add successfully',

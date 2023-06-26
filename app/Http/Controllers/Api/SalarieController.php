@@ -27,7 +27,7 @@ class SalarieController extends Controller
     {
         $query = $request->input('query');
         $salarie = Salarie::query()->where('employee_id', 'like', '%' . $query . '%')
-            ->orwhere('date', 'like', '%' . $query . '%')->
+            ->orwhere('end_day', 'like', '%' . $query . '%')->
             orwhere('Job_number', 'like', '%' . $query . '%')->
             orwhere('employee_name', 'like', '%' . $query . '%')->
             orwhere('national_number', 'like', '%' . $query . '%')->
@@ -35,6 +35,7 @@ class SalarieController extends Controller
             orwhere('discounts', 'like', '%' . $query . '%')->
             orwhere('tax', 'like', '%' . $query . '%')->
             orwhere('social_security', 'like', '%' . $query . '%')->
+            orwhere('start_day', 'like', '%' . $query . '%')->
             orwhere('net_salary', 'like', '%' . $query . '%')->get();
 
         return response([

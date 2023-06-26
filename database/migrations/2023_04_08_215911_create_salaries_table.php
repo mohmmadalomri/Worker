@@ -17,7 +17,8 @@ class extends Migration
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->references('id')->on('users');
-            $table->date('date');
+            $table->date('start_day');
+            $table->date('end_day');
             $table->integer('Job_number');
             $table->string('employee_name');
             $table->integer('national_number');
@@ -27,7 +28,7 @@ class extends Migration
             $table->double('tax');
             $table->double('social_security');
             $table->double('net_salary');
-            $table->enum('status',['approved','pending']);
+            $table->enum('status',['approved','pending'])->default('pending');
             $table->timestamps();
         });
     }

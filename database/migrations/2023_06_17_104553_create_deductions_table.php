@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -19,7 +18,7 @@ return new class extends Migration
             $table->string('reason');
             $table->double('value');
             $table->date('date');
-            $table->enum('status',['don','in_progress','canceled']);
+            $table->enum('status', ['don', 'in_progress', 'canceled']);
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('company_id')->references('id')->on('users');
             $table->foreignId('supervisor_id')->references('id')->on('users');

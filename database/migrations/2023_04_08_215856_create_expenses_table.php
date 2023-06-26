@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('purpose');
-            $table->date('date');
+            $table->date('start_day');
+            $table->date('end_day');
             $table->double('value');
             $table->timestamps();
         });

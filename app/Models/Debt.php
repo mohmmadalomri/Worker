@@ -10,7 +10,7 @@ class Debt extends Model
     use HasFactory;
 
     protected $fillable = ['employee_name', 'employee_id', 'Job_number', 'national_number',
-        'description', 'specialization', 'image', 'date','value'
+        'description', 'specialization', 'image', 'end_day', 'value', 'status', 'start_day'
 
     ];
 

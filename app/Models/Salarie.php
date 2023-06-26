@@ -9,8 +9,9 @@ class Salarie extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'employee_id','date','Job_number','employee_name','national_number','section_id',
-        'deductions','discounts','tax','social_security','net_salary'
+        'employee_id','start_day','Job_number','employee_name',
+        'national_number','section_id','status',
+        'deductions','discounts','tax','social_security','net_salary','end_day'
     ];
 
     public function employee(){

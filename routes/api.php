@@ -57,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('auth/user', UserController::class);
     Route::apiResource('auth/department', DepartmentsController::class);
     Route::post('auth/vacation/serach', [VacationController::class, 'serach']);
+    Route::get('auth/vacation/history', [VacationController::class, 'history']);
     Route::apiResource('auth/vacation', VacationController::class);
     Route::post('auth/debt/serach', [DebtController::class, 'serach']);
     Route::apiResource('auth/debt', DebtController::class);
@@ -84,11 +85,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('auth/holiday', HolidayController::class);
     Route::post('auth/occupation/serach', [OccupationController::class, 'serach']);
     Route::post('auth/deduction/serach', [DeductionController::class, 'serach']);
-
     Route::apiResource('auth/deduction', DeductionController::class);
     Route::apiResource('auth/occupation', OccupationController::class);
     Route::post('auth/jop/serach', [JopController::class, 'serach']);
-
     Route::apiResource('auth/jop', JopController::class);
 
 });

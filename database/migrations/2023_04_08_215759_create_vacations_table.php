@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -25,8 +24,8 @@ return new class extends Migration
             $table->string('image');
             $table->date('start_day');
             $table->date('end_day');
-            $table->enum('status',['acceptable','waiting ','canceled','rejected']);
-            $table->enum('type',['Paid','Deducted ','Sick','Without_Salary_Deduction']);
+            $table->enum('status', ['acceptable', 'waiting ', 'canceled', 'rejected'])->default('waiting');
+            $table->enum('type', ['Paid', 'Deducted ', 'Sick', 'Without_Salary_Deduction']);
 
             $table->timestamps();
         });

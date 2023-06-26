@@ -21,7 +21,8 @@ class ExpenseFactory extends Factory
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
             'purpose' => $this->faker->text(),
-            'date' => $this->faker->date(),
+            'end_day' => $this->faker->date(),
+            'start_day' => $this->faker->date(),
             'value' => $this->faker->randomNumber(),
 
         ];

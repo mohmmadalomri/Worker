@@ -20,7 +20,6 @@ class TaskFactory extends Factory
 
             'title' => $this->faker->title(),
             'description' => $this->faker->text(),
-            'date' => $this->faker->date(),
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date(),
             'company_id' => $this->faker->randomNumber(1, 50),

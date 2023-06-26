@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -21,7 +20,6 @@ return new class extends Migration
             $table->double('amount');
             $table->date('date');
             $table->double('remaining_amount');
-            $table->foreignId('order_id')->references('id')->on('orders');
             $table->foreignId('project_id')->references('id')->on('projects');
             $table->double('value');
             $table->double('discount');

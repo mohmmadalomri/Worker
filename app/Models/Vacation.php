@@ -9,7 +9,7 @@ class Vacation extends Model
 {
     use HasFactory;
     protected $fillable=['employee_name','employee_id',
-        'national_number','Job_number',
+        'national_number','Job_number','status',
         'specialization','description','reason',
         'image','start_day','type','end_day'];
 

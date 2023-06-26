@@ -46,12 +46,12 @@ class User extends Authenticatable
 
     public function section()
     {
-        return $this->hasMany(Department::class, 'company_id', 'id');
+        return $this->hasMany(Departments::class, 'company_id', 'id');
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'id', 'department_id');
+        return $this->belongsTo(Departments::class, 'id', 'department_id');
     }
 
     public function debt()
@@ -61,12 +61,12 @@ class User extends Authenticatable
 
     public function expens()
     {
-        return $this->hasMany(Expenses::class, 'employee_id', 'id');
+        return $this->hasMany(Expense::class, 'employee_id', 'id');
     }
 
     public function salary()
     {
-        return $this->hasOne(Salary::class, 'employee_id', 'id');
+        return $this->hasOne(Salarie::class, 'employee_id', 'id');
     }
 
     public function customer()

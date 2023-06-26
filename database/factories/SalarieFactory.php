@@ -26,7 +26,8 @@ class SalarieFactory extends Factory
             'tax' => $this->faker->randomNumber(),
             'social_security' => $this->faker->randomNumber(),
             'net_salary' => $this->faker->randomNumber(),
-            'date' => $this->faker->date(),
+            'start_day' => $this->faker->date(),
+            'end_day' => $this->faker->date(),
             'employee_name' => $this->faker->name(),
         ];
     }

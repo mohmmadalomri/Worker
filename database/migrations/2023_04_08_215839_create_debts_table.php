@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -23,7 +22,9 @@ return new class extends Migration
             $table->string('description');
             $table->string('specialization');
             $table->string('image');
-            $table->date('date');
+            $table->date('start_day');
+            $table->date('end_day');
+            $table->enum('status', ['approve', 'bending', 'not_approve', 'canceled']);
             $table->timestamps();
         });
     }

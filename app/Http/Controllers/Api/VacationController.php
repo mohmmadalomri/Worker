@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Constraint\Count;
 
 class VacationController extends Controller
 {
@@ -23,9 +24,13 @@ class VacationController extends Controller
 
     }
 
-    public function history(){
-        $vacation=Vacation::query()->where('employee_id',Auth::id())->get();
-        
+    public function history()
+    {
+        $vacation = Vacation::query()->where('employee_id', Auth::id())->get();
+        return response()->json([
+            'vacation' => $vacation
+        ], 200);
+
     }
 
 
@@ -40,7 +45,8 @@ class VacationController extends Controller
             orwhere('description', 'like', '%' . $query . '%')->
             orwhere('reason', 'like', '%' . $query . '%')->
             orwhere('type', 'like', '%' . $query . '%')->
-            orwhere('date', 'like', '%' . $query . '%')->get();
+            orwhere('end_day', 'like', '%' . $query . '%')->
+            orwhere('start_day', 'like', '%' . $query . '%')->get();
         return response([
             'vacation' => $vacation
         ], 200);
@@ -51,7 +57,7 @@ class VacationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -64,15 +70,34 @@ class VacationController extends Controller
             'reason' => 'required|string',
         ]);
 
-        $data = $request->all();
-        $image = $request->file('image');
-        $data['image'] = $this->images($image, null);
-        $vacation = Vacation::create($data);
+        $totalVacation = 21;
+        $vacationall = Vacation::query()->where('employee_id', Auth::id())->count();
 
-        return response([
-            'massage' => 'vacation add successful',
-            'vacation' => $vacation,
-        ], 200);
+        $reimannigVacation=$totalVacation-$vacationall;
+
+
+        if ($vacationall >= $totalVacation) {
+            return response()->json([
+                'massage' => "you spend all vacation you have"
+            ], 200);
+        } else {
+
+
+            $data = $request->all();
+            $image = $request->file('image');
+            $data['image'] = $this->images($image, null);
+            $vacation = Vacation::create($data);
+
+            return response()->json([
+                'massage' => 'vacation add successful',
+                'totalVacation' => $totalVacation,
+                'vacationall' => $vacationall,
+                'reimannigVacation' => $reimannigVacation,
+
+                'vacation' => $vacation,
+            ], 200);
+        }
+
 
     }
 
